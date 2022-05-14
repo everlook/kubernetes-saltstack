@@ -1,0 +1,7 @@
+master: 192.168.56.10
+
+id: node1
+
+grains:
+  roles:
+    - node

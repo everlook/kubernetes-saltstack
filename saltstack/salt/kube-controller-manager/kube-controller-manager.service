@@ -1,0 +1,20 @@
+### THIS FILE IS MANAGED BY SALTSTACK
+[Unit]
+Description=Kubernetes Controller Manager
+Documentation=https://github.com/kubernetes/kubernetes
+
+[Service]
+ExecStart=/usr/bin/kube-controller-manager \
+    --bind-address=0.0.0.0 \
+    --cluster-name=kubernetes \
+    --kubeconfig=/var/lib/kubernetes/kubeconfig  \
+    --root-ca-file=/var/lib/kubernetes/ca.crt \
+    --tls-cert-file=/var/lib/kubernetes/kube-admin.crt \
+    --tls-private-key-file=/var/lib/kubernetes/kube-admin.key \
+    --service-account-private-key-file=/var/lib/kubernetes/kube-apiserver-serviceaccount.key \
+    --v=2
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

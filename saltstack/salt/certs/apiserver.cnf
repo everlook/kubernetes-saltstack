@@ -1,0 +1,34 @@
+[ req ]
+default_bits = 2048
+prompt = no
+default_md = sha256
+req_extensions = req_ext
+distinguished_name = req_distinguished_name
+
+[ req_distinguished_name ]
+C = US
+ST = OR
+L = BEND
+O = KUBERNETES
+OU = CLUSTER
+CN = kube-apiserver
+
+[ req_ext ]
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1 = kubemaster
+DNS.2 = kubemaster.default
+DNS.3 = kubemaster.default.svc
+DNS.4 = kubemaster.default.svc.cluster
+DNS.5 = kubemaster.default.svc.cluster.local
+IP.1 = 127.0.0.1
+IP.2 = 192.168.56.10
+
+
+[ v3_ext ]
+authorityKeyIdentifier=keyid,issuer:always
+basicConstraints=CA:FALSE
+keyUsage=keyEncipherment,dataEncipherment
+extendedKeyUsage=serverAuth,clientAuth
+subjectAltName=@alt_names

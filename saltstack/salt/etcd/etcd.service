@@ -1,0 +1,22 @@
+### THIS FILE IS MANAGED BY SALTSTACK
+{%- set clusterDomain =  pillar['kubernetes']['domain'] -%}
+[Unit]
+Description=etcd
+Documentation=https://github.com/coreos
+
+[Service]
+ExecStart=/usr/bin/etcd  \
+--advertise-client-urls https://127.0.0.1:2379 \
+--key-file=/var/lib/kubernetes/etcd-server.key \
+--cert-file=/var/lib/kubernetes/etcd-server.crt \
+--client-cert-auth=true \
+--data-dir=/var/lib/etcd \
+--listen-client-urls=https://127.0.0.1:2379 \
+--trusted-ca-file=/var/lib/kubernetes/ca.crt
+
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=30000
+
+[Install]
+WantedBy=multi-user.target

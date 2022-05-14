@@ -1,0 +1,21 @@
+### THIS FILE IS MANAGED BY SALTSTACK
+[Unit]
+Description=Kubernetes Kubelet
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+After=containerd.service
+Requires=containerd.service
+
+[Service]
+ExecStart=/usr/bin/kubelet \
+  --container-runtime=remote \
+  --container-runtime-endpoint=unix:///run/containerd/containerd.sock \
+  --kubeconfig=/var/lib/kubernetes/kubeconfig \
+  --register-node=true \
+  --client-ca-file=/var/lib/kubernetes/ca.crt \
+  --v=2
+
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
