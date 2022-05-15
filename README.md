@@ -15,10 +15,17 @@ vagrant plugin install vagrant-sshfs
 $ make
 ```
 
+### Start the cluster
+
+```bash
+$ vagrant up
+```
+
 ### Create a pod
 ```bash
 $ vagrant ssh apiserver
 $ sudo su -
+$ kubectl --kubeconfig=/var/lib/kubernetes/kubeconfig get componentstatuses
 $ kubectl --kubeconfig=/var/lib/kubernetes/kubeconfig run nginx --image=nginx
 $ kubectl --kubeconfig=/var/lib/kubernetes/kubeconfig get pods nginx -owide
 $ kubectl --kubeconfig=/var/lib/kubernetes/kubeconfig describe pods nginx
